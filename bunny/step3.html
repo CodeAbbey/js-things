@@ -1,0 +1,55 @@
+<!doctype html>
+<head>
+<title>Bouncing Bunny with Scheme instead of JavaScript</title>
+
+<style>
+    body {
+        background: gray;
+        text-align: center;
+    }
+    #field {
+        background: cyan;
+        margin: 0px auto;
+        position: relative;
+        width: 640px;
+        height: 480px;
+    }
+    #bunny {
+        position: absolute;
+        height: 100px;
+    }
+</style>
+</head>
+<body>
+<div id="field">
+    <h1>Heeey, I'm Jumping Bunny!</h1>
+    <img id="bunny" src="https://codeabbey.github.io/js-things/bunny/bunny2.png"/>
+</div>
+
+<script src="https://codeabbey.github.io/js-things/biwascheme.js">
+
+(define x 0)
+(define y 0)
+
+(define field (getelem "#field"))
+(define fieldW (element-width field))
+(define fieldH (element-height field))
+
+(define bunny (getelem "#bunny"))
+
+(define (bunnyMove left top)
+    (set-style! bunny "left" left)
+    (set-style! bunny "top" top))
+
+(define updatePosition
+    (lambda ()
+        (set! x (+ x 1))
+        (set! y (+ y 1))
+        (bunnyMove x y)))
+
+(set-timer! updatePosition 0.05)
+
+</script>
+
+</body>
+</html>
