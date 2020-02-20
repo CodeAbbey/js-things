@@ -18,12 +18,28 @@
             position: absolute;
             height: 20%;
         }
+        #sample {
+            text-align: left;
+            display: inline-block;
+            color: #525;
+        }
     </style>
 </head>
 <body>
     <center>
     <div id="field">
         <h1>Heeey, I'm Bouncing Bunny!</h1>
+        <pre>
+(define (dt)
+    (let ((t2 (js-eval "new Date().getTime()")))
+        (let ((delta (- t2 t)))
+            (set! t t2)
+            delta)))
+
+(define (bunnyMove left top)
+    (set-style! bunny "left" left)
+    (set-style! bunny "top" top))
+        </pre>
         <img id="bunny" src="https://codeabbey.github.io/js-things/bunny/bunny2.png"/>
     </div>
 
