@@ -44,8 +44,8 @@
 (bunnyMove 0 0)
 
 (define (updatePosition)
-    (if (>= y (- fieldH bunnyH)) (set! vy -2))
-    (if (>= x (- fieldW bunnyW)) (set! vx -2))
+    (if (>= y (- fieldH (element-height bunny))) (set! vy -2))
+    (if (>= x (- fieldW (element-width bunny))) (set! vx -2))
     (if (<= y 0) (set! vy 2))
     (if (<= x 0) (set! vx 2))
     (set! x (+ x vx))
