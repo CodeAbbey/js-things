@@ -1,0 +1,77 @@
+<!doctype html>
+
+<html>
+<head>
+    <title>Bouncing Bunny with Scheme</title>
+
+    <style>
+        body {
+            background: gray;
+        }
+        #field {
+            background: cyan;
+            position: relative;
+            width: 640px;
+            height: 400px;
+        }
+        #bunny {
+            position: absolute;
+            height: 20%;
+        }
+    </style>
+</head>
+<body>
+    <center>
+    <div id="field">
+        <h1>Heeey, I'm Bouncing Bunny!</h1>
+        <img id="bunny" src="https://codeabbey.github.io/js-things/bunny/bunny2.png"/>
+    </div>
+
+<script src="../biwascheme.js">
+
+(define field (getelem "#field"))
+(define fieldW (js-eval "Math.floor(window.innerWidth * 0.9)"))
+(define fieldH (js-eval "Math.floor(window.innerHeight * 0.9)"))
+(set-style! field "width" fieldW)
+(set-style! field "height" fieldH)
+(define speed (/ (min fieldW fieldH) 100))
+
+(define bunny (getelem "#bunny"))
+
+(define x 0)
+(define y 0)
+(define vx speed)
+(define vy speed)
+(define t 0)
+
+(define (dt)
+    (let ((t2 (js-eval "new Date().getTime()")))
+        (let ((delta (- t2 t)))
+            (set! t t2)
+            delta)))
+
+(define (bunnyMove left top)
+    (set-style! bunny "left" left)
+    (set-style! bunny "top" top))
+
+(bunnyMove 0 0)
+
+(define (updatePosition deltaTime)
+    (if (>= y (- fieldH (element-height bunny))) (set! vy (- speed)))
+    (if (>= x (- fieldW (element-width bunny))) (set! vx (- speed)))
+    (if (<= y 0) (set! vy speed))
+    (if (<= x 0) (set! vx speed))
+    (set! x (+ x (round (/ (* vx deltaTime) 50))))
+    (set! y (+ y (round (/ (* vy deltaTime) 50))))
+    (bunnyMove x y)
+    (js-call (js-eval "requestAnimationFrame") (js-closure nextFrame)))
+
+(define (nextFrame)
+    (let ((delta (dt)))
+        (updatePosition delta)))
+
+(dt)
+(nextFrame)
+</script>
+
+</body>
