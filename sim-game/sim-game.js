@@ -24,7 +24,17 @@ var side = 0;
 var gameLost = null;
 
 function setup() {
-    createCanvas(windowWidth, windowHeight);
+    var w = windowWidth;
+    var h = windowHeight;
+    if (typeof(simGamePrepare) == 'function') {
+        simGamePrepare();
+        var div = document.getElementById('sim-game-parent');
+        w = div.clientWidth;
+        h = div.clientHeight;
+        alert('prepare ' + w + ' ' + h);
+    }
+    var cnv = createCanvas(w, h);
+    cnv.parent('sim-game-parent');
     recalcSizes();
     noLoop();
 }
@@ -93,10 +103,10 @@ function windowResized() {
 }
 
 function recalcSizes() {
-    ptSize = Math.round(Math.min(windowWidth, windowHeight) / 10);
+    ptSize = Math.round(Math.min(width, height) / 10);
     pts.forEach(p => {
-        p[2] = Math.round(windowWidth * p[0]);
-        p[3] = Math.round(windowHeight * p[1]);
+        p[2] = Math.round(width * p[0]);
+        p[3] = Math.round(height * p[1]);
     });
 }
 

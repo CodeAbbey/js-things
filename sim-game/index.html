@@ -13,7 +13,16 @@
 </style>
 </head>
 <body>
+<script>
+function simGamePreparez() {
+    var div = document.getElementById('sim-game-parent');
+    div.style.height = window.innerHeight + 'px';
+    alert(window.innerHeight);
+    div.style.width = window.innerWidth + 'px';
+}
+</script>
 <script src="https://codeabbey.github.io/js-things/p5.js"></script>
 <script src="./sim-game.js"></script>
+<div id="sim-game-parent"></div>
 </body>
 </html>
